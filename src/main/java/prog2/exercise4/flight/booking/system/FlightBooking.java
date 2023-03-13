@@ -431,38 +431,65 @@ public class FlightBooking {
     private String type;
     private String booking_class;
 
-    public void setTicketNumber(int i) {
-        if (tripType.equals(TripType.ONE_WAY)) {
-            type = "11";
+    Random random = new Random();
+    public void setTicketNumber() {
+
+        switch (tripType) {
+            case ONE_WAY:
+                ticketNumber = "11";
+                break;
+            case RETURN:
+                ticketNumber = "22";
+                break;
         }
-        if (tripType.equals(TripType.RETURN)) {
-            type = "22";
+
+        for (int i = 0; i < 4; i++) {
+            char f = (char) ((random.nextInt(26) + 65));
+            ticketNumber = ticketNumber + f;
         }
-        if (bookClass.equals(BookingClass.FIRST)) {
-            booking_class = "F";
+        this.ticketNumber = ticketNumber + "DOM";
+        if (source == TripSource.NANJING && destination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "DOM";
         }
-        if (bookClass.equals(BookingClass.BUSINESS)) {
-            booking_class = "B";
+        if (source == TripSource.BEIJING && destination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "DOM";
         }
-        if (bookClass.equals(BookingClass.ECONOMY)) {
-            booking_class = "E";
+        if (source == TripSource.OULU && destination == TripDestination.HELSINKI) {
+            this.ticketNumber = ticketNumber + "DOM";
         }
-        String place;
-        if (((source == TripSource.NANJING) && (destination == TripDestination.BEIJING)) ||
-                ((source == TripSource.BEIJING) && (destination == TripDestination.NANJING)) ||
-                ((source == TripSource.OULU) && (destination == TripDestination.HELSINKI)) ||
-                ((source == TripSource.HELSINKI) && (destination == TripDestination.OULU))) {
-            place = "DOM";
-        } else {
-            place = "INT";
+        if (source == TripSource.HELSINKI && destination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "DOM";
         }
-        String Letter="ASDF";
-        this.ticketNumber = type + booking_class + Letter + place;
+        if (source == TripSource.NANJING && destination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.OULU && destination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.NANJING && destination == TripDestination.HELSINKI) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.HELSINKI && destination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.BEIJING && destination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.OULU && destination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.BEIJING && destination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (source == TripSource.HELSINKI && destination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
     }
 
 
+
     public void setDepartingTicketPrice(int childPassengers, int adultPassengers) {
-        double departingTicketPrice = 0.0;
+        double departingTicketPrice=0.00;
         if((source == TripSource.OULU || source == TripSource.PARIS || source == TripSource.HELSINKI) && (destination == TripDestination.PARIS || destination == TripDestination.OULU || destination == TripDestination.HELSINKI)) {
             departingTicketPrice = 345;
         }else if((source == TripSource.NANJING || source == TripSource.BEIJING || source == TripSource.SHANGHAI) && (destination == TripDestination.NANJING || destination == TripDestination.BEIJING || destination == TripDestination.SHANGHAI)){
