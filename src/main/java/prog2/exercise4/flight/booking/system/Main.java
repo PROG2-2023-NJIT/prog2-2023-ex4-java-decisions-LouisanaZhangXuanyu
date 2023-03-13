@@ -15,8 +15,9 @@ public class Main
 
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the total number of tickets you want to reserve : ");
-        int numbers = input.nextInt();
-        FlightBooking fb = new FlightBooking(numbers);
+        int numbers=input.nextInt();
+        FlightBooking fb;
+        fb = new FlightBooking(numbers);
         fb.reserveTickets(numbers);
         fb.getBookingClass();
         fb.getTripType();
@@ -25,7 +26,7 @@ public class Main
 
         for(int i=0; i<numbers; ++i){
             fb.setTicketNumber(i);
-            fb.getTicketNumber(i);
+            fb.getTicketNumber();
         }
 
         fb.setTotalPassengers(numbers);
@@ -40,7 +41,6 @@ public class Main
         fb.displayTripDetails(numbers);
 
         input.close();
-
     }
 
 }
