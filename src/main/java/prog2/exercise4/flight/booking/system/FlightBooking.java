@@ -8,6 +8,8 @@ public class FlightBooking {
     public final String flightCompany = "Flights-of-Fancy";
     public String flightID;
     public String ticketNumber;
+    private double returnedPrice;
+
     public  FlightBooking(String passengerfullName,LocalDate departureDate,LocalDate returnDate,int children,int adults){
         this.passengerFullName=passengerFullName;
         this.departureDate=departureDate;
@@ -128,7 +130,6 @@ public class FlightBooking {
         System.out.println("Please choose your tripType\n1. One way\n2. Return");
         int b = input.nextInt();
         String choice2;
-        choice2 = "";
         switch(b){
             case 1:
                 choice2 = "1";
@@ -142,7 +143,7 @@ public class FlightBooking {
 
         System.out.println("Please choose your sources\n1. Nanjing\n2. Beijing\n3. Oulu\n4. Helsinki");
         int c = input.nextInt();
-        String choice3 = "";
+        String choice3 = null;
         switch(c){
             case 1:
                 choice3 = "1";
@@ -461,15 +462,6 @@ public class FlightBooking {
     private static final double base_ticket_price = 300;
     private double booking_class_charge;
     public void setDepartingTicketPrice(int child,int adults){
-        if(bookClass.equals(BookingClass.FIRST)){
-            booking_class_charge = 250;
-        }
-        if(bookClass.equals(BookingClass.BUSINESS)){
-            booking_class_charge = 150;
-        }
-        if(bookClass.equals(BookingClass.ECONOMY)){
-            booking_class_charge = 50;
-        }
         double taxes;
         double service_fees;
         if(((source == TripSource.NANJING) && (destination == TripDestination.BEIJING))||
@@ -477,18 +469,31 @@ public class FlightBooking {
                 ((source == TripSource.OULU) && (destination == TripDestination.HELSINKI))||
                 ((source == TripSource.HELSINKI) && (destination == TripDestination.OULU)))
         {
-            taxes =0.1*300;
-            service_fees =0.05*300;
+            if(bookClass.equals(BookingClass.FIRST)){
+                departingTicketPrice = (child +adults)*(300 + 300*0.1 + 300*0.05 + 250);
+            }
+            if(bookClass.equals(BookingClass.BUSINESS)){
+                departingTicketPrice= (child + adults)*(300 + 300*0.1 + 300*0.05 + 150);
+            }
+            if(bookClass.equals(BookingClass.ECONOMY)){
+                departingTicketPrice = (child + adults)*(300 + 300*0.1 + 300*0.05 + 50);
+            }
         }else{
-            taxes =0.15*300;
-            service_fees =0.1*300;
+            if(bookClass.equals(BookingClass.FIRST)){
+                departingTicketPrice = (child +adults)*(300 + 300*0.15 + 300*0.1 + 250);
+            }
+            if(bookClass.equals(BookingClass.BUSINESS)){
+                departingTicketPrice= (child + adults)*(300 + 300*0.15 + 300*0.1 + 150);
+            }
+            if(bookClass.equals(BookingClass.ECONOMY)){
+                departingTicketPrice = (child + adults)*(300 + 300*0.15 + 300*0.1 + 50);
+            }
         }
-        this.departingTicketPrice =(((childPassengers *((300 + (0.1*300)) + (0.05*300))) + (adultPassengers*((300 + (0.1*300)) + (0.05*300)))) + 250)*2;
     }
 
     public void setReturnTicketPrice(){
 
-        this.returnTicketPrice = departingTicketPrice;
+        this.returnedPrice = getTotalTicketPrice();
     }
 
     public void setTotalTicketPrice(){
