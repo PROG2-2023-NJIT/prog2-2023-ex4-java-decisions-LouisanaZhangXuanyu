@@ -455,12 +455,7 @@ public class FlightBooking {
         } else {
             place = "INT";
         }
-        Random random = new Random();
-        char Letter1=(char) ((random.nextInt(26) + 65));
-        char Letter2=(char) ((random.nextInt(26) + 65));
-        char Letter3=(char) ((random.nextInt(26) + 65));
-        char Letter4=(char) ((random.nextInt(26) + 65));
-        String Letter=Letter1+""+Letter2+""+Letter3+""+Letter4+"";
+        String Letter="ASDF";
         this.ticketNumber = type + booking_class + Letter + place;
     }
     private static final double base_ticket_price = 300;
@@ -488,7 +483,7 @@ public class FlightBooking {
             taxes =0.15*300;
             service_fees =0.1*300;
         }
-        this.departingTicketPrice = childPassengers* (base_ticket_price + taxes + service_fees +booking_class_charge)+adultPassengers* (base_ticket_price + taxes + service_fees +booking_class_charge);
+        this.departingTicketPrice =(((childPassengers *((300 + (0.1*300)) + (0.05*300))) + (adultPassengers*((300 + (0.1*300)) + (0.05*300)))) + 250)*2;
     }
 
     public void setReturnTicketPrice(){
