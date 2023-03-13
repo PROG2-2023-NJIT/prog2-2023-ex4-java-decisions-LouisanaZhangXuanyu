@@ -24,10 +24,6 @@ public class Main
         fb.getTripSource();
         fb.getTripDestination();
 
-        for(int i=0; i<numbers; ++i){
-            fb.setTicketNumber(i);
-            fb.getTicketNumber();
-        }
 
         fb.setTotalPassengers(numbers);
         fb.setFlightID("FOF"+"0345"+"IN");
