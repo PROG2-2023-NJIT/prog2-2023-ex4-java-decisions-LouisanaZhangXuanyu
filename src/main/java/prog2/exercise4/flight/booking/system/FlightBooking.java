@@ -461,39 +461,31 @@ public class FlightBooking {
     }
     private static final double base_ticket_price = 300;
     private double booking_class_charge;
-    public void setDepartingTicketPrice(int child,int adults){
-        double taxes;
-        double service_fees;
-        if(((source == TripSource.NANJING) && (destination == TripDestination.BEIJING))||
-                ((source == TripSource.BEIJING) && (destination == TripDestination.NANJING))||
-                ((source == TripSource.OULU) && (destination == TripDestination.HELSINKI))||
-                ((source == TripSource.HELSINKI) && (destination == TripDestination.OULU)))
-        {
-            if(bookClass.equals(BookingClass.FIRST)){
-                departingTicketPrice = (child +adults)*(300 + 300*0.1 + 300*0.05 + 250);
-            }
-            if(bookClass.equals(BookingClass.BUSINESS)){
-                departingTicketPrice= (child + adults)*(300 + 300*0.1 + 300*0.05 + 150);
-            }
-            if(bookClass.equals(BookingClass.ECONOMY)){
-                departingTicketPrice = (child + adults)*(300 + 300*0.1 + 300*0.05 + 50);
-            }
-        }else{
-            if(bookClass.equals(BookingClass.FIRST)){
-                departingTicketPrice = (child +adults)*(300 + 300*0.15 + 300*0.1 + 250);
-            }
-            if(bookClass.equals(BookingClass.BUSINESS)){
-                departingTicketPrice= (child + adults)*(300 + 300*0.15 + 300*0.1 + 150);
-            }
-            if(bookClass.equals(BookingClass.ECONOMY)){
-                departingTicketPrice = (child + adults)*(300 + 300*0.15 + 300*0.1 + 50);
-            }
+    public void setDepartingTicketPrice(int childPassengers, int adultPassengers) {
+        double departingTicketPrice = 0.0;
+        if((source == TripSource.OULU || source == TripSource.PARIS || source == TripSource.HELSINKI) && (destination == TripDestination.PARIS || destination == TripDestination.OULU || destination == TripDestination.HELSINKI)) {
+            departingTicketPrice = 345;
+        }else if((source == TripSource.NANJING || source == TripSource.BEIJING || source == TripSource.SHANGHAI) && (destination == TripDestination.NANJING || destination == TripDestination.BEIJING || destination == TripDestination.SHANGHAI)){
+            departingTicketPrice = 345;
+        }
+        else {
+            departingTicketPrice = 375;
+        }
+        if(bookClass == BookingClass.FIRST) {
+            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers  + 250;
+        } else if(bookClass == BookingClass.BUSINESS) {
+            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers + 150;
+        } else if(bookClass == BookingClass.ECONOMY) {
+            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers + 50;
         }
     }
 
-    public void setReturnTicketPrice(){
-
-        this.returnedPrice = getTotalTicketPrice();
+    public void setReturnTicketPrice() {
+        if(tripType == TripType.ONE_WAY) {
+            this.returnTicketPrice = 0;
+        } else {
+            this.returnTicketPrice = this.departingTicketPrice;
+        }
     }
 
     public void setTotalTicketPrice(){
