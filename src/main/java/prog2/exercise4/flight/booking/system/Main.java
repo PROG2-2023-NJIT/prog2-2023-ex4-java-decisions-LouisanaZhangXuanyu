@@ -34,6 +34,7 @@ public class Main
         fb.getReturnTicketPrice();
         fb.getFlightCompany();
         fb.getDepartureDate();
+        fb.setTicketNumber();
         fb.displayTripDetails(numbers);
 
         input.close();
