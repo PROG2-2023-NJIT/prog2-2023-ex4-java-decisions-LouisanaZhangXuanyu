@@ -204,7 +204,7 @@ public class FlightBooking {
                 "Following are the details of your booking and the trip:\n");
         for(int i = 0; i < numbers; i++){
             System.out.println(
-                            "Ticket Number: " + ticketNumber + "\n" +
+                    "Ticket Number: " + ticketNumber + "\n" +
                             "Passenger Name: " + passengerFullName[i] + "\n" +
                             "From: " + source  + " to: " + destination + "\n" +
                             "Date of depart: " + departureDate + "\n" +
@@ -271,21 +271,21 @@ public class FlightBooking {
         }
         else switch (choice4){
             case"1":
-            this.destination = TripDestination.NANJING;
-            this.destinationAirport = DestinationAirport.NanjingLukouInternationalAirport;
-            break;
+                this.destination = TripDestination.NANJING;
+                this.destinationAirport = DestinationAirport.NanjingLukouInternationalAirport;
+                break;
             case "2":
-            this.destination = TripDestination.BEIJING;
-            this.destinationAirport = DestinationAirport.BeijingCapitalInternationalAirport;
-            break;
+                this.destination = TripDestination.BEIJING;
+                this.destinationAirport = DestinationAirport.BeijingCapitalInternationalAirport;
+                break;
             case "3":
-            this.destination = TripDestination.OULU;
-            this.destinationAirport = DestinationAirport.OuluAirport;
-            break;
+                this.destination = TripDestination.OULU;
+                this.destinationAirport = DestinationAirport.OuluAirport;
+                break;
             case "4":
-            this.destination = TripDestination.HELSINKI;
-            this.destinationAirport = DestinationAirport.HelsinkiAirport;
-            break;
+                this.destination = TripDestination.HELSINKI;
+                this.destinationAirport = DestinationAirport.HelsinkiAirport;
+                break;
             default:
         }
     }
@@ -296,23 +296,23 @@ public class FlightBooking {
 
     public void setSourceAirport(String choice3) {
         switch (choice3) {
-                case "1":
-                    this.source = TripSource.NANJING;
-                    this.sourceAirport = SourceAirport.NanjingLukouInternationalAirport;
-                    break;
-                case "2":
-                    this.source = TripSource.BEIJING;
-                    this.sourceAirport = SourceAirport.BeijingCapitalInternationalAirport;
-                    break;
-                case "3":
-                    this.source = TripSource.OULU;
-                    this.sourceAirport = SourceAirport.OuluAirport;
-                    break;
-                case "4":
-                    this.source = TripSource.HELSINKI;
-                    this.sourceAirport = SourceAirport.HelsinkiAirport;
-                    break;
-                default:
+            case "1":
+                this.source = TripSource.NANJING;
+                this.sourceAirport = SourceAirport.NanjingLukouInternationalAirport;
+                break;
+            case "2":
+                this.source = TripSource.BEIJING;
+                this.sourceAirport = SourceAirport.BeijingCapitalInternationalAirport;
+                break;
+            case "3":
+                this.source = TripSource.OULU;
+                this.sourceAirport = SourceAirport.OuluAirport;
+                break;
+            case "4":
+                this.source = TripSource.HELSINKI;
+                this.sourceAirport = SourceAirport.HelsinkiAirport;
+                break;
+            default:
 
         }
     }
@@ -400,7 +400,7 @@ public class FlightBooking {
     }
 
     public String getTicketNumber() {
-
+        setTicketNumber();
         return ticketNumber;
     }
 
@@ -428,62 +428,52 @@ public class FlightBooking {
         return tripType;
     }
 
+
     private String type;
     private String booking_class;
+    private String place;
 
+    public void setTripType(String choice2) {
+        if(choice2.equals("1")){
+            this.tripType = TripType.ONE_WAY;
+        }
+        if(choice2.equals("2")){
+            this.tripType = TripType.RETURN;
+        }
+    }
     Random random = new Random();
-    public void setTicketNumber() {
-
-        switch (tripType) {
-            case ONE_WAY:
-                ticketNumber = "11";
-                break;
-            case RETURN:
-                ticketNumber = "22";
-                break;
+    public void setTicketNumber(){
+        if(tripType.equals(TripType.ONE_WAY)){
+            type = "11";
+        }
+        if(tripType.equals(TripType.RETURN)){
+            type = "22";
+        }
+        if(bookClass.equals(BookingClass.FIRST)){
+            booking_class = "F";
+        }
+        if(bookClass.equals(BookingClass.BUSINESS)){
+            booking_class = "B";
+        }
+        if(bookClass.equals(BookingClass.ECONOMY)){
+            booking_class = "E";
+        }
+        if(((source == TripSource.NANJING) && (destination == TripDestination.BEIJING))||
+                ((source == TripSource.BEIJING) && (destination == TripDestination.NANJING))||
+                ((source == TripSource.OULU) && (destination == TripDestination.HELSINKI))||
+                ((source == TripSource.HELSINKI) && (destination == TripDestination.OULU)))
+        {
+            place = "DOM";
+            ticketNumber=type+booking_class+"ILCN"+place;
+        }else{
+            place = "INT";
+            ticketNumber=type+booking_class+"ILCN"+place;
         }
 
-        for (int i = 0; i < 4; i++) {
-            char f = (char) ((random.nextInt(26) + 65));
-            ticketNumber = ticketNumber + f;
-        }
-        this.ticketNumber = ticketNumber + "DOM";
-        if (source == TripSource.NANJING && destination == TripDestination.BEIJING) {
-            this.ticketNumber = ticketNumber + "DOM";
-        }
-        if (source == TripSource.BEIJING && destination == TripDestination.NANJING) {
-            this.ticketNumber = ticketNumber + "DOM";
-        }
-        if (source == TripSource.OULU && destination == TripDestination.HELSINKI) {
-            this.ticketNumber = ticketNumber + "DOM";
-        }
-        if (source == TripSource.HELSINKI && destination == TripDestination.OULU) {
-            this.ticketNumber = ticketNumber + "DOM";
-        }
-        if (source == TripSource.NANJING && destination == TripDestination.OULU) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.OULU && destination == TripDestination.NANJING) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.NANJING && destination == TripDestination.HELSINKI) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.HELSINKI && destination == TripDestination.NANJING) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.BEIJING && destination == TripDestination.OULU) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.OULU && destination == TripDestination.BEIJING) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.BEIJING && destination == TripDestination.NANJING) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
-        if (source == TripSource.HELSINKI && destination == TripDestination.BEIJING) {
-            this.ticketNumber = ticketNumber + "INT";
-        }
+    }
+
+    public String getTicketNumber(int i) {
+        return ticketNumber;
     }
 
 
@@ -523,6 +513,7 @@ public class FlightBooking {
             this.totalTicketPrice = departingTicketPrice + returnTicketPrice;
         }
     }
+
     public double getTotalTicketPrice() {
 
         return totalTicketPrice;
@@ -541,12 +532,5 @@ public class FlightBooking {
     }
 
 
-    public void setTripType(String choice2) {
-        if(choice2.equals("1")){
-            this.tripType = TripType.ONE_WAY;
-        }
-        if(choice2.equals("2")){
-            this.tripType = TripType.RETURN;
-        }
-    }
+
 }
